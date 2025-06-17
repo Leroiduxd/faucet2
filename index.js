@@ -1,8 +1,8 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import cors from 'cors';
-import { ethers } from 'ethers';
-import dotenv from 'dotenv';
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const { ethers } = require('ethers');
+const dotenv = require('dotenv');
 
 dotenv.config();
 
@@ -28,9 +28,9 @@ if (!PRIVATE_KEY) {
 const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
 const wallet = new ethers.Wallet(PRIVATE_KEY, provider);
 
-// Map pour stocker les timestamps des envois
+// Historique des envois : { address => timestamp }
 const sentTimestamps = new Map();
-const TIME_WINDOW_MS = 24 * 60 * 60 * 1000; // 24h en ms
+const TIME_WINDOW_MS = 24 * 60 * 60 * 1000; // 24h
 
 app.post('/send', async (req, res) => {
   const { address } = req.body;
